@@ -1,0 +1,24 @@
+{
+  "name": "aadhaar-verifier-deployment",
+  "version": "1.0.0",
+  "description": "Deployment scripts for Aadhaar verifier contract",
+  "main": "compile-aadhaar-contract.js",
+  "scripts": {
+    "compile": "node compile-aadhaar-contract.js",
+    "compile:generic": "node compile-contract.js",
+    "deploy": "bash run-sepolia-deploy.sh"
+  },
+  "dependencies": {
+    "solc": "^0.8.19"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "zkp",
+    "aadhaar",
+    "verifier"
+  ],
+  "author": "",
+  "license": "MIT"
+} 

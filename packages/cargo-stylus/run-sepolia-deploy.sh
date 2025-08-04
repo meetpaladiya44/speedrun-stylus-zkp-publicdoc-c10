@@ -17,13 +17,23 @@ if [[ -z "$PRIVATE_KEY" ]]; then
   exit 1
 fi
 
-# Optionally, check for required tools
-for cmd in cast npx curl; do
+# Check for required tools
+for cmd in cast node curl; do
   if ! command -v $cmd &> /dev/null; then
     echo "Error: $cmd is not installed."
     exit 1
   fi
 done
+
+# Check if node_modules exists, if not install dependencies
+if [[ ! -d "node_modules" ]]; then
+  echo "Installing Node.js dependencies..."
+  npm install
+  if [[ $? -ne 0 ]]; then
+    echo "Error: Failed to install Node.js dependencies"
+    exit 1
+  fi
+fi
 
 # Check if we can connect to Arbitrum Sepolia
 echo "Checking connection to Arbitrum Sepolia..."
@@ -45,7 +55,7 @@ echo "Deployer address: $deployer_address"
 
 # Compile the Solidity contract
 echo "Compiling Solidity contract..."
-npx solcjs --bin --abi --optimize -o build/ contracts/aadhaar-verifier.sol
+node compile-aadhaar-contract.js
 
 if [[ $? -ne 0 ]]; then
     echo "Error: Solidity compilation failed"
